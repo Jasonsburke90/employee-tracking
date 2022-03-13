@@ -126,8 +126,42 @@ function addEmployee() {
 }
 // Add role function
 function addRole() {
-  console.log("adding role");
-  mainPrompt();
+  inquirer
+    .prompt([
+      {
+        name: "roleTitle",
+        type: "input",
+        message: "What's the role's title?",
+      },
+      {
+        name: "roleSalary",
+        type: "input",
+        message: "What's the role's salary?",
+      },
+    ])
+    .then((answers) => {
+      db.query("SELECT * FROM department", function (err, results) {
+        const department = results.map(({ id, name }) => ({
+          name: name,
+          value: id,
+        }));
+        inquirer
+          .prompt({
+            type: "list",
+            name: "id",
+            message: "What is the employee's department?",
+            choices: department,
+          })
+          .then((department) => {
+            db.query(
+              "INSERT INTO role(title, salary, department_id) values(?,?,?)",
+              [answers.roleTitle, answers.roleSalary, department.id]
+            );
+            console.log("Role ADDED");
+            mainPrompt();
+          });
+      });
+    });
 }
 // Add department function
 function addDepartment() {
