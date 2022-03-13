@@ -33,7 +33,13 @@ function openingPrompt() {
     })
     .then((answers) => {
       console.log(answers);
-      viewEmployees();
+      if (answers.openingList === "VIEWEMPLOYEES") viewEmployees();
+      else if (answers.openingList === "VIEWROLES") viewRoles();
+      else if (answers.openingList === "VIEWDEPTS") viewDepartments();
+      else if (answers.openingList === "ADDDEPT") addDepartment();
+      else if (answers.openingList === "ADDROLE") addRole();
+      else if (answers.openingList === "ADDEMPLOYEE") addEmployee();
+      else if (answers.openingList === "UPDATEEMPLOYEE") updateEmployee();
     });
 }
 
