@@ -157,7 +157,7 @@ function addRole() {
               "INSERT INTO role(title, salary, department_id) values(?,?,?)",
               [answers.roleTitle, answers.roleSalary, department.id]
             );
-            console.log("Role ADDED");
+            console.log("ROLE ADDED");
             mainPrompt();
           });
       });
@@ -165,8 +165,21 @@ function addRole() {
 }
 // Add department function
 function addDepartment() {
-  console.log("adding department");
-  mainPrompt();
+  inquirer
+    .prompt([
+      {
+        name: "departmentName",
+        type: "input",
+        message: "What's the Department's name?",
+      },
+    ])
+    .then((answers) => {
+      db.query("INSERT INTO department(name) values(?)", [
+        answers.departmentName,
+      ]);
+      console.log("DEPARTMENT ADDED");
+      mainPrompt();
+    });
 }
 // Update employee function
 function updateEmployee() {
