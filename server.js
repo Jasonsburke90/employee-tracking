@@ -183,8 +183,42 @@ function addDepartment() {
 }
 // Update employee function
 function updateEmployee() {
-  console.log("updating employee");
-  mainPrompt();
+  db.query("SELECT * FROM employees", function (err, results) {
+    const employee = results.map(({ id, first_name, last_name }) => ({
+      name: first_name + " " + last_name,
+      value: id,
+    }));
+    inquirer
+      .prompt({
+        type: "list",
+        name: "id",
+        message: "Which employee do you wish to update?",
+        choices: employee,
+      })
+      .then((answers) => {
+        db.query("SELECT * FROM role", function (err, results) {
+          const role = results.map(({ id, title }) => ({
+            name: title,
+            value: id,
+          }));
+          inquirer
+            .prompt({
+              type: "list",
+              name: "id",
+              message: "What should the employee's role be updated to?",
+              choices: role,
+            })
+            .then((role) => {
+              db.query("UPDATE employees SET role_id = ? WHERE id = ?", [
+                role.id,
+                answers.id,
+              ]);
+              console.log("EMPLOYEE UPDATED");
+              mainPrompt();
+            });
+        });
+      });
+  });
 }
 // initialize app
 function init() {
