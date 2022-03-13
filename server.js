@@ -1,7 +1,6 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
-const PORT = process.env.PORT || 3001;
 
 // Connect to employee database
 const db = mysql.createConnection(
@@ -68,8 +67,62 @@ function viewDepartments() {
 }
 // Add Employee function
 function addEmployee() {
-  console.log("adding employee");
-  mainPrompt();
+  inquirer
+    .prompt([
+      {
+        name: "firstName",
+        type: "input",
+        message: "What's the employee's first name?",
+      },
+      {
+        name: "lastName",
+        type: "input",
+        message: "What's the employee's last name?",
+      },
+    ])
+    .then((answers) => {
+      db.query("SELECT * FROM role", function (err, results) {
+        const role = results.map(({ id, title }) => ({
+          name: title,
+          value: id,
+        }));
+        inquirer
+          .prompt({
+            type: "list",
+            name: "id",
+            message: "What is the employee's role?",
+            choices: role,
+          })
+          .then((role) => {
+            db.query(
+              "SELECT * FROM employees where manager_id IS NULL OR manager_id = '1'",
+              function (err, results) {
+                const manager = results.map(
+                  ({ id, first_name, last_name }) => ({
+                    name: first_name + " " + last_name,
+                    value: id,
+                  })
+                );
+                inquirer
+                  .prompt({
+                    type: "list",
+                    name: "id",
+                    message: "What is the manager's name?",
+                    choices: manager,
+                  })
+                  .then((manager) => {
+                    db.query(
+                      "INSERT INTO employees(first_name, last_name, role_id, manager_id) values(?,?,?,?)",
+                      [answers.firstName, answers.lastName, role.id, manager.id]
+                    );
+                    console.log("EMPLOYEE ADDED");
+                    mainPrompt();
+                  });
+              }
+            );
+          });
+      });
+    });
 }
 // Add role function
 function addRole() {
