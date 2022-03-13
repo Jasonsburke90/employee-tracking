@@ -1,7 +1,7 @@
 INSERT INTO department (name)
 VALUES ("HR"),
 ("Marketing"),
-("Coding"),
+("Coding");
 
 
 INSERT INTO role (title, salary, department_ID)
@@ -16,7 +16,7 @@ VALUES ("CEO", 300000, 1),
 ("Software Development Manager", 150000, 3);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Big", "Boss", 1, `null`),
+VALUES ("Big", "Boss", 1, null),
 ("Ron", "Swanson", 2, 1),
 ("Jim", "Lahey", 4, 1),
 ("Zapp", "Brannigan", 9, 1),

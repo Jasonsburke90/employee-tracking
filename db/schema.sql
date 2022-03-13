@@ -6,14 +6,14 @@ use employees_db;
 create table department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30)
-)
+);
 
 create table role (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR (30) NOT NULL,
     salary DECIMAL,
     department_id INT
-)
+);
 
 create table employees (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -21,5 +21,5 @@ create table employees (
     last_name VARCHAR(30) NOT NULL,
     role_id INT,
     manager_id INT
-)
+);
 
