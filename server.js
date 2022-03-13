@@ -19,22 +19,49 @@ function openingPrompt() {
   inquirer
     .prompt({
       type: "list",
-      name: "Opening Question",
+      name: "openingList",
       choices: [
-        "view all departments",
-        "view all roles",
-        "view all employees",
-        "add a department",
-        "add a role",
-        "add an employee",
-        "update a role",
+        { name: "view all departments", value: "VIEWDEPTS" },
+        { name: "view all roles", value: "VIEWROLES" },
+        { name: "view all employees", value: "VIEWEMPLOYEES" },
+        { name: "add a department", value: "ADDDEPT" },
+        { name: "add a role", value: "ADDROLE" },
+        { name: "add an employee", value: "ADDEMPLOYEE" },
+        { name: "update an employee role", value: "UPDATEEMPLOYEE" },
       ],
       message: "What action would you like to perform?",
     })
-    .then((answer) => {
-      console.log(answer);
+    .then((answers) => {
+      console.log(answers);
+      viewEmployees();
     });
 }
+
+// View employees
+function viewEmployees() {
+  db.query("SELECT * FROM employees", function (err, results) {
+    console.table(results);
+  });
+}
+// View roles
+function viewRoles() {
+  db.query("SELECT * FROM role", function (err, results) {
+    console.table(results);
+  });
+}
+// View departments
+function viewDepartments() {
+  db.query("SELECT * FROM department", function (err, results) {
+    console.table(results);
+  });
+}
+// Add Employee
+
+// Add role
+
+// Add department
+
+// Update employee
 
 // initialize app
 function init() {
