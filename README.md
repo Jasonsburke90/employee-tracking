@@ -9,6 +9,7 @@ Users will use the command line, initializing the app with node server.js.
 ## Video of the program in action
 
 Here is a video recording of the employee tracking system in action!
+https://drive.google.com/file/d/1E3W6HKgNQpl67Z3-YTgQ0Pym1GtwDaDI/view
 
 ## Link to the repo
 
