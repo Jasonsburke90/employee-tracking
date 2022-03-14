@@ -72,12 +72,12 @@ function addEmployee() {
       {
         name: "firstName",
         type: "input",
-        message: "What's the employee's first name?",
+        message: "What is the new employee's first name?",
       },
       {
         name: "lastName",
         type: "input",
-        message: "What's the employee's last name?",
+        message: "What is the new employee's last name?",
       },
     ])
     .then((answers) => {
@@ -90,7 +90,7 @@ function addEmployee() {
           .prompt({
             type: "list",
             name: "id",
-            message: "What is the employee's role?",
+            message: "What is the new employee's role?",
             choices: role,
           })
           .then((role) => {
@@ -107,7 +107,7 @@ function addEmployee() {
                   .prompt({
                     type: "list",
                     name: "id",
-                    message: "What is the manager's name?",
+                    message: "What is the new employee's manager's name?",
                     choices: manager,
                   })
                   .then((manager) => {
@@ -131,12 +131,12 @@ function addRole() {
       {
         name: "roleTitle",
         type: "input",
-        message: "What's the role's title?",
+        message: "What is the new role's title?",
       },
       {
         name: "roleSalary",
         type: "input",
-        message: "What's the role's salary?",
+        message: "What is the new role's salary?",
       },
     ])
     .then((answers) => {
@@ -149,7 +149,7 @@ function addRole() {
           .prompt({
             type: "list",
             name: "id",
-            message: "What is the employee's department?",
+            message: "What is the new role's department?",
             choices: department,
           })
           .then((department) => {
@@ -170,7 +170,7 @@ function addDepartment() {
       {
         name: "departmentName",
         type: "input",
-        message: "What's the Department's name?",
+        message: "What is the new Department's name?",
       },
     ])
     .then((answers) => {
